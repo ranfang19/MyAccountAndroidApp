@@ -19,6 +19,7 @@ public class AjouteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajoute);
 
+        //for changing button color
         final Button incomeButton = findViewById(R.id.ajoute_button_income);
         final Button expenseButton = findViewById(R.id.ajoute_button_expense);
         incomeButton.setOnClickListener(new View.OnClickListener(){
