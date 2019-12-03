@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My Account</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="ajouter">Ajouter</string>
+    <string name="title">Title</string>
+    <string name="amount">Amount(€)</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
+    <string-array name="category_arrays">
+        <item>Food</item>
+        <item>Shopping</item>
+        <item>Transport</item>
+        <item>Housing</item>
+    </string-array>
+</resources>
