@@ -1,5 +1,6 @@
 package fr.utt.if26.myaccount;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,35 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder> {
-    List<Line> account;
-
-    public AccountAdapter(List<Line> account) {
-        this.account = account;
-    }
-
-    @NonNull
-    @Override
-    public AccountAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_row,parent,false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull AccountAdapter.ViewHolder holder, int position) {
-        holder.title.setText(account.get(position).getTitle());
-        holder.date.setText(account.get(position).getDay()+"/"+account.get(position).getMonth()+"/"+account.get(position).getYear());
-        holder.category.setText(account.get(position).getCategory());
-        if(account.get(position).isExpense()){
-            holder.expense.setText("expense");
-        }else{
-            holder.expense.setText("income");
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return account.size();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
@@ -57,4 +29,49 @@ class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder> {
 
         }
     }
+    private final LayoutInflater mInflater;
+    private List<LineEntity> account; // Cached copy of words
+
+    AccountAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+
+    public void setAccount(List<LineEntity> l){
+        account = l;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public AccountAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.account_row,parent,false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AccountAdapter.ViewHolder holder, int position) {
+       if(account !=null){
+           holder.title.setText(account.get(position).getTitle());
+           holder.date.setText(account.get(position).getDay()+"/"+account.get(position).getMonth()+"/"+account.get(position).getYear());
+           holder.category.setText(account.get(position).getCategory());
+           if(account.get(position).isExpense()){
+               holder.expense.setText("expense");
+           }else{
+               holder.expense.setText("income");
+           }
+       }else{
+           holder.title.setText("none");
+       }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        if(account !=null){
+            return account.size();
+        }else{
+            return 0;
+        }
+
+    }
+
+
 }

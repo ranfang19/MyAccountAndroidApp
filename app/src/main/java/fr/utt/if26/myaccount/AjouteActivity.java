@@ -1,11 +1,9 @@
 package fr.utt.if26.myaccount;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+import androidx.lifecycle.ViewModelProviders;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +11,17 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class AjouteActivity extends AppCompatActivity {
     Boolean expense=true;
+    private LineViewModel mLineViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajoute);
+
+        mLineViewModel = ViewModelProviders.of(this).get(LineViewModel.class);
 
 
 
@@ -53,9 +53,7 @@ public class AjouteActivity extends AppCompatActivity {
                 expense=true;
             }
         });
-        final AppDatabase db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class, "production")
-                .allowMainThreadQueries()
-                .build();
+
         validerBt.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -65,11 +63,11 @@ public class AjouteActivity extends AppCompatActivity {
                 String title = titleEd.getText().toString();
                 Double amount = Double.parseDouble(amountEd.getText().toString());
                 String category = mySpinner.getSelectedItem().toString();
-                Line line = new Line(title, day,month,year,amount,category,expense);
-                db.lineDao().insertAll(line);
-
+                LineEntity lineEntity = new LineEntity(title, day,month,year,amount,category,expense);
+                mLineViewModel.insert(lineEntity);
                 Log.v("mjy",expense+" "+day+" "+month+" "+year+" "+title+amount+category);
-                Intent intent = new Intent(AjouteActivity.this, MainActivity.class);
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 startActivity(intent);
             }
         });

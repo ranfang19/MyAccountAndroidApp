@@ -1,15 +1,16 @@
 package fr.utt.if26.myaccount;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity (tableName = "account_table")
-public class Line {
-
+public class LineEntity{
+    @NonNull
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private static int numInstances;
-
     private String title;
     private int   day;
     private int   month;
@@ -18,8 +19,7 @@ public class Line {
     private String category;
     private boolean expense;
 
-    public Line(String title, int day, int month, int year, Double amount, String category, boolean expense) {
-        this.id=numInstances++;
+    public LineEntity(String title, int day, int month, int year, Double amount, String category, boolean expense) {
         this.title = title;
         this.day = day;
         this.month = month;
