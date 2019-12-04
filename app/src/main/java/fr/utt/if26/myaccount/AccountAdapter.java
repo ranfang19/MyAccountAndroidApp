@@ -8,12 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder> {
-    ArrayList<Line> account;
+    List<Line> account;
 
-    public AccountAdapter(ArrayList<Line> account) {
+    public AccountAdapter(List<Line> account) {
         this.account = account;
     }
 

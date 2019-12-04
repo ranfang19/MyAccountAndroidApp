@@ -3,10 +3,10 @@ package fr.utt.if26.myaccount;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity (tableName = "account_table")
 public class Line {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private static int numInstances;
 

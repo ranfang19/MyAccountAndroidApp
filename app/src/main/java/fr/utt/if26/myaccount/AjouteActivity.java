@@ -1,6 +1,7 @@
 package fr.utt.if26.myaccount;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -52,7 +53,9 @@ public class AjouteActivity extends AppCompatActivity {
                 expense=true;
             }
         });
-
+        final AppDatabase db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class, "production")
+                .allowMainThreadQueries()
+                .build();
         validerBt.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -62,10 +65,14 @@ public class AjouteActivity extends AppCompatActivity {
                 String title = titleEd.getText().toString();
                 Double amount = Double.parseDouble(amountEd.getText().toString());
                 String category = mySpinner.getSelectedItem().toString();
-
+                Line line = new Line(title, day,month,year,amount,category,expense);
+                db.lineDao().insertAll(line);
 
                 Log.v("mjy",expense+" "+day+" "+month+" "+year+" "+title+amount+category);
+                Intent intent = new Intent(AjouteActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
+
     }
 }
