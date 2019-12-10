@@ -7,6 +7,7 @@
     <string name="amount">Amount(€)</string>
     <string name="date">Date</string>
     <string name="category">Category</string>
+    <string name="author"><![CDATA[Fang & Ma]]></string>
     <string-array name="category_arrays">
         <item>Food</item>
         <item>Shopping</item>
