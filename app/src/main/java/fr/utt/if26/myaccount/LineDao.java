@@ -16,10 +16,10 @@ public interface LineDao {
     @Query("DELETE FROM account_table WHERE id= :id")
     void delete(String id);
 
-    @Query("SELECT * from account_table WHERE month=:month  ORDER BY day ASC")
+    @Query("SELECT * from account_table WHERE month=:month  ORDER BY year DESC, month DESC,day DESC ")
     List<LineEntity> getAllLinesOneMonth(int month);
 
-    @Query("SELECT * FROM account_table")
+    @Query("SELECT * FROM account_table ORDER BY year DESC, month DESC,day DESC ")
     LiveData<List<LineEntity>> getAllLines();
 
     @Query("DELETE FROM account_table")

@@ -1,7 +1,5 @@
 package fr.utt.if26.myaccount;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
